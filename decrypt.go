@@ -1,9 +1,35 @@
 package aspnetpass
 
 import (
+	"bytes"
+	"crypto/sha1"
+	"crypto/sha256"
+	"crypto/sha512"
 	"encoding/base64"
 	"encoding/binary"
+
+	"golang.org/x/crypto/pbkdf2"
 )
+
+// Verify verifies if a password matches to a .Net password hash string
+func Verify(pass, hash string) (bool, error) {
+	_, salt, key, iter, alg, err := Decrypt(hash)
+	if err != nil {
+		return false, err
+	}
+
+	h := sha1.New
+	switch alg {
+	case "sha256":
+		h = sha256.New
+	case "sha512":
+		h = sha512.New
+	}
+
+	k := pbkdf2.Key([]byte(pass), salt, iter, len(key), h)
+
+	return bytes.Equal(key, k), nil
+}
 
 // Decrypt decrypts .Net password hash string
 func Decrypt(str string) (ver string, key, salt []byte, iter int, alg string, err error) {
