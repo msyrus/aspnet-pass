@@ -19,7 +19,7 @@ const (
 
 // Verify verifies if a password matches to a .Net password hash string
 func Verify(pass, hash string) (bool, error) {
-	_, salt, key, iter, alg, err := Decrypt(hash)
+	_, key, salt, iter, alg, err := Decrypt(hash)
 	if err != nil {
 		return false, err
 	}
@@ -38,10 +38,10 @@ func Verify(pass, hash string) (bool, error) {
 }
 
 // Decrypt decrypts .Net password hash string
-func Decrypt(str string) (ver string, key, salt []byte, iter int, alg string, err error) {
+func Decrypt(hstr string) (ver string, key, salt []byte, iter int, alg string, err error) {
 	var klen, slen int
 
-	byts, err := base64.StdEncoding.DecodeString(str)
+	byts, err := base64.StdEncoding.DecodeString(hstr)
 	if err != nil {
 		return
 	}
