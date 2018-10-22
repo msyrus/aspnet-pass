@@ -45,6 +45,13 @@ func TestVerify(t *testing.T) {
 			},
 			wantErr: true,
 		},
+		{
+			args: args{
+				pass: "Hello World",
+				hash: "AG2oFz8Ah7HV4nT792MSPWkwEctaCy65/AG9AryfW+GcDDhfkG3j73oEMy4VwYJ/Kw==",
+			},
+			want: true,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -61,7 +68,8 @@ func TestVerify(t *testing.T) {
 }
 
 func TestDecrypt(t *testing.T) {
-	key, _ := hex.DecodeString("566298380357b9ae22ce8141a107bc88b46774efba50c3043cd8de37a801948f")
+	key1, _ := hex.DecodeString("566298380357b9ae22ce8141a107bc88b46774efba50c3043cd8de37a801948f")
+	key2, _ := hex.DecodeString("3011cb5a0b2eb9fc01bd02bc9f5be19c0c385f906de3ef7a04332e15c1827f2b")
 	salt, _ := hex.DecodeString("6da8173f0087b1d5e274fbf763123d69")
 	type args struct {
 		str string
@@ -81,16 +89,26 @@ func TestDecrypt(t *testing.T) {
 				str: "AQAAAAEAACcQAAAAEG2oFz8Ah7HV4nT792MSPWlWYpg4A1e5riLOgUGhB7yItGd077pQwwQ82N43qAGUjw==",
 			},
 			wantVer:  "3",
-			wantKey:  key,
+			wantKey:  key1,
 			wantSalt: salt,
 			wantIter: 10000,
-			wantAlg:  algoSha256,
+			wantAlg:  AlgoSha256,
 		},
 		{
 			args: args{
 				str: "AQAAAAEAACcQAAAAEG2oFz8Ah7HV4nT792MSPWlWYpg4A1e5riLOgUGhB7yItGd077pQwwQ82N43qAGUjw=",
 			},
 			wantErr: true,
+		},
+		{
+			args: args{
+				str: "AG2oFz8Ah7HV4nT792MSPWkwEctaCy65/AG9AryfW+GcDDhfkG3j73oEMy4VwYJ/Kw==",
+			},
+			wantVer:  "2",
+			wantKey:  key2,
+			wantSalt: salt,
+			wantIter: 1000,
+			wantAlg:  AlgoSha1,
 		},
 	}
 	for _, tt := range tests {

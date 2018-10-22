@@ -11,10 +11,11 @@ import (
 	"golang.org/x/crypto/pbkdf2"
 )
 
+// List of supported algorithms
 const (
-	algoSha1   = "sha1"
-	algoSha256 = "sha256"
-	algoSha512 = "sha512"
+	AlgoSha1   = "sha1"
+	AlgoSha256 = "sha256"
+	AlgoSha512 = "sha512"
 )
 
 // Verify verifies if a password matches to a .Net password hash string
@@ -26,9 +27,9 @@ func Verify(pass, hash string) (bool, error) {
 
 	h := sha1.New
 	switch alg {
-	case algoSha256:
+	case AlgoSha256:
 		h = sha256.New
-	case algoSha512:
+	case AlgoSha512:
 		h = sha512.New
 	}
 
@@ -63,7 +64,7 @@ func Decrypt(hstr string) (ver string, key, salt []byte, iter int, alg string, e
 			err = ErrBadSize
 			return
 		}
-		alg = algoSha1
+		alg = AlgoSha1
 		iter = 1000
 		salt = byts[1 : 1+slen]
 		key = byts[1+slen:]
@@ -72,11 +73,11 @@ func Decrypt(hstr string) (ver string, key, salt []byte, iter int, alg string, e
 
 	switch binary.BigEndian.Uint32(byts[1:5]) {
 	case 0:
-		alg = algoSha1
+		alg = AlgoSha1
 	case 1:
-		alg = algoSha256
+		alg = AlgoSha256
 	case 2:
-		alg = algoSha512
+		alg = AlgoSha512
 	default:
 		err = ErrBadAlgorithm
 		return
