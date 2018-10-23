@@ -9,6 +9,10 @@ matrix:
     - go: "1.11"
     - go: master
 
+before_install:
+  - go get github.com/mattn/goveralls
+
 script:
+  - $GOPATH/bin/goveralls -service=travis-ci
   - go build ./...
   - go test -v ./...
