@@ -4,10 +4,10 @@ import "errors"
 
 // List of errors
 var (
-	ErrBadSize      = errors.New("bad size")
-	ErrBadSaltLen   = errors.New("bad salt length")
-	ErrBadKeyLen    = errors.New("bad key length")
-	ErrBadVersion   = errors.New("bad version")
-	ErrBadAlgorithm = errors.New("bad algorithm")
-	ErrBadIteration = errors.New("bad iteration")
+	ErrBadSize      = errors.New("aspnetpass: bad size")
+	ErrBadSaltLen   = errors.New("aspnetpass: bad salt length")
+	ErrBadKeyLen    = errors.New("aspnetpass: bad key length")
+	ErrBadVersion   = errors.New("aspnetpass: bad version")
+	ErrBadAlgorithm = errors.New("aspnetpass: bad algorithm")
+	ErrBadIteration = errors.New("aspnetpass: bad iteration")
 )
