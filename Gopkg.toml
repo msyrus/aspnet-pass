@@ -29,6 +29,14 @@
   branch = "master"
   name = "golang.org/x/crypto"
 
+[[constraint]]
+  name = "github.com/golang/mock"
+  branch = "master"
+
+[[constraint]]
+  branch = "master"
+  name = "github.com/msyrus/go"
+
 [prune]
   go-tests = true
   unused-packages = true

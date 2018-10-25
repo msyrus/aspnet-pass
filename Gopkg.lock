@@ -3,15 +3,43 @@
 
 [[projects]]
   branch = "master"
+  digest = "1:2e292c0e36117b617c4df3f10ac9a7fe05e3c90bf057f1e61867c913d866e0c9"
+  name = "github.com/golang/mock"
+  packages = ["gomock"]
+  pruneopts = "UT"
+  revision = "600781dde9cca80734169b9e969d9054ccc57937"
+
+[[projects]]
+  branch = "master"
+  digest = "1:05a3df54112ef4000eca900be7ace0cd912e2a1d8c78548898ffbf59ebf653af"
+  name = "github.com/msyrus/go"
+  packages = ["gomock-matcher"]
+  pruneopts = "UT"
+  revision = "ced224d061be8b085c1b8648c5e4029bea491d88"
+
+[[projects]]
+  branch = "master"
   digest = "1:f92f6956e4059f6a3efc14924d2dd58ba90da25cc57fe07ae3779ef2f5e0c5f2"
   name = "golang.org/x/crypto"
   packages = ["pbkdf2"]
   pruneopts = "UT"
   revision = "0c41d7ab0a0ee717d4590a44bcb987dfd9e183eb"
 
+[[projects]]
+  branch = "master"
+  digest = "1:76ee51c3f468493aff39dbacc401e8831fbb765104cbf613b89bef01cf4bad70"
+  name = "golang.org/x/net"
+  packages = ["context"]
+  pruneopts = "UT"
+  revision = "04a2e542c03f1d053ab3e4d6e5abcd4b66e2be8e"
+
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  input-imports = ["golang.org/x/crypto/pbkdf2"]
+  input-imports = [
+    "github.com/golang/mock/gomock",
+    "github.com/msyrus/go/gomock-matcher",
+    "golang.org/x/crypto/pbkdf2",
+  ]
   solver-name = "gps-cdcl"
   solver-version = 1
